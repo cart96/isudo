@@ -15,8 +15,10 @@
 | Isudo can be used in console with following style:               |
 |                                                                  |
 |   isudo [options|command]                                        |
+|   isudo -h                                                       |
 |   isudo notepad                                                  |
 |   isudo -k "echo muchwow"                                        |
+|   isudo -xnotepad "todo.txt"                                     |
 |   isudo                                                          |
 |                                                                  |
 |==================================================================|
