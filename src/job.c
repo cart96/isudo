@@ -3,9 +3,11 @@
 #include <string.h>
 
 void run_as_admin(const char *command, prompt_t type) {
+    // get current directory
     char directory[MAX_PATH] = {0};
     GetCurrentDirectory(MAX_PATH, directory);
 
+    // edit buffer
     size_t length = strlen(command) + MAX_PATH + 4;
     char *buffer = calloc(length, sizeof(char));
     buffer[0] = '/';
@@ -17,5 +19,6 @@ void run_as_admin(const char *command, prompt_t type) {
     strcat(buffer, "\" && ");
     strcat(buffer, command);
 
+    // execute as admin
     ShellExecuteA(NULL, "runas", "cmd", buffer, directory, SW_SHOWNORMAL);
 }
