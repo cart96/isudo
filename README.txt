@@ -2,7 +2,7 @@
 | Isudo                                                            |
 | -----                                                            |
 |                                                                  |
-| Fast and small sudo command for Windows.                         |
+| Fast, small yet powerful sudo command for Windows.               |
 | Written in C and supports old Windows versions.                  |
 | Used LLVM based MinGW toolchain for compiling.                   |
 |                                                                  |
@@ -14,9 +14,9 @@
 |                                                                  |
 | Isudo can be used in console with following style:               |
 |                                                                  |
-|   isudo [command]                                                |
+|   isudo [options|command]                                        |
 |   isudo notepad                                                  |
-|   isudo "notepad edit.txt"                                       |
+|   isudo -k "echo muchwow"                                        |
 |   isudo                                                          |
 |                                                                  |
 |==================================================================|
