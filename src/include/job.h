@@ -6,6 +6,6 @@ typedef enum {
     prompt_keep
 } prompt_t;
 
-void run_as_admin(const char *command, prompt_t type);
+void run_as_admin(char *command, char *app, prompt_t type);
 
 #endif
