@@ -1,0 +1,1 @@
+clang -O3 -s -Werror -Wall -std=c99 -pedantic-errors -m32 ./src/main.c -o isudo.exe
