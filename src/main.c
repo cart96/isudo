@@ -2,16 +2,16 @@
 #include <stdio.h>
 
 int main(int argc, char **argv) {
-    // check argument count
-    if (argc < 2) {
-        run_as_admin("echo Loaded!", "", prompt_keep, 1);
-        return 0;
-    }
-
     int def_dir = 1;
     char app[MAX_PATH] = {0};
     char *command = "";
     prompt_t option = prompt_keep;
+
+    // check argument count
+    if (argc < 2) {
+        run_as_admin("echo Loaded!", app, option, def_dir);
+        return 0;
+    }
 
     // parse arguments
     for (size_t arg_index = 1; arg_index < argc; arg_index++) {
@@ -37,16 +37,22 @@ int main(int argc, char **argv) {
                     option = prompt_close;
                 } else if (current_char == 'd') {
                     def_dir = 0;
+                } else if (current_char == '-') {
+                    arg_index = argc;
+                    break;
                 } else if (current_char == 'h') {
                     puts(
-                        "Isudo 1.0.0\n\n"
+                        "Isudo 1.0.0\n\n"  
+                        "Code: https://github.com/cart96/isudo\n"
                         "Note: Isudo supports argument/option overriding.\n"
                         "Usage: isudo.exe [options|command]\n"
                         "\nOptions\n"
-                        "   -x<file>    Execute a program as admin.\n"
-                        "   -k          Keep CMD open after execution.\n"
-                        "   -c          Close CMD after execution.\n"
-                        "   -d          Prevent directory replacing.\n"
+                        "   -x<command>    Execute a command as admin.\n"
+                        "   -k             Keep CMD open after execution.\n"
+                        "   -c             Close CMD after execution.\n"
+                        "   -d             Prevent directory replacing.\n"
+                        "   -h             You already ran that!\n"
+                        "   --             Stop processing arguments.\n"
                         "\nExamples\n"
                         "   isudo.exe\n"
                         "   isudo.exe -h\n"

@@ -18,14 +18,17 @@
 | | C:\> isudo -h                                                | |
 | | Isudo 1.0.0                                                  | |
 | |                                                              | |
+| | Code: https://github.com/cart96/isudo                        | |
 | | Note: Isudo supports argument/option overriding.             | |
 | | Usage: isudo.exe [options|command]                           | |
 | |                                                              | |
 | | Options                                                      | |
-| |    -x<file>    Execute a program as admin.                   | |
-| |    -k          Keep CMD open after execution.                | |
-| |    -c          Close CMD after execution.                    | |
-| |    -d          Prevent directory replacing.                  | |
+| |    -x<command>    Execute a command as admin.                | |
+| |    -k             Keep CMD open after execution.             | |
+| |    -c             Close CMD after execution.                 | |
+| |    -d             Prevent directory replacing.               | |
+| |    -h             You already ran that!                      | |
+| |    --             Stop processing arguments.                 | |
 | |                                                              | |
 | | Examples                                                     | |
 | |    isudo.exe                                                 | |
