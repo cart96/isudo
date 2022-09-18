@@ -4,7 +4,7 @@
 int main(int argc, char **argv) {
     // check argument count
     if (argc < 2) {
-        run_as_admin("echo Loaded!", "cmd", prompt_keep, 1);
+        run_as_admin("echo Loaded!", "", prompt_keep, 1);
         return 0;
     }
 
@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
                         "   -x<file>    Execute a program as admin.\n"
                         "   -k          Keep CMD open after execution.\n"
                         "   -c          Close CMD after execution.\n"
-                        "   -d          Make directory default instead of current location.\n"
+                        "   -d          Prevent directory replacing.\n"
                         "\nExamples\n"
                         "   isudo.exe\n"
                         "   isudo.exe -h\n"
