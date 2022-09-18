@@ -1,48 +1,61 @@
 #include "job.c"
 #include <stdio.h>
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
     int def_dir = 1;
     char app[MAX_PATH] = {0};
     char *command = "";
     prompt_t option = prompt_keep;
 
-    // check argument count
-    if (argc < 2) {
+    if (argc < 2)
+    {
         run_as_admin("echo Loaded!", app, option, def_dir);
         return 0;
     }
 
-    // parse arguments
-    for (size_t arg_index = 1; arg_index < argc; arg_index++) {
+    for (size_t arg_index = 1; arg_index < argc; arg_index++)
+    {
         char *current_arg = argv[arg_index];
 
-        if (current_arg[0] == '-') {
-            // get options
+        if (current_arg[0] == '-')
+        {
             int mode_index = -1;
 
-            for (size_t char_index = 1; current_arg[char_index] != '\0'; char_index++) {
+            for (size_t char_index = 1; current_arg[char_index] != '\0'; char_index++)
+            {
                 char current_char = current_arg[char_index];
 
-                if (mode_index >= 0) {
+                if (mode_index >= 0)
+                {
                     app[mode_index] = current_char;
                     app[mode_index + 1] = '\0';
                     mode_index += 1;
                     continue;
                 }
 
-                if (current_char == 'k') {
+                switch (current_char)
+                {
+                case 'k':
                     option = prompt_keep;
-                } else if (current_char == 'c') {
-                    option = prompt_close;
-                } else if (current_char == 'd') {
-                    def_dir = 0;
-                } else if (current_char == '-') {
-                    arg_index = argc;
                     break;
-                } else if (current_char == 'h') {
+                case 'c':
+                    option = prompt_close;
+                    break;
+                case 'd':
+                    def_dir = 0;
+                    break;
+                case '-':
+                    arg_index = argc;
+                    current_arg[char_index + 1] = '\0';
+                    break;
+                case 'x':
+                    mode_index = 0;
+                    app[0] = '\0';
+                    break;
+                case 'h':
                     puts(
-                        "Isudo 1.0.0\n\n"  
+                        "Isudo 1.0.0\n\n"
                         "Code: https://github.com/cart96/isudo\n"
                         "Note: Isudo supports argument/option overriding.\n"
                         "Usage: isudo.exe [options|command]\n"
@@ -62,16 +75,14 @@ int main(int argc, char **argv) {
                         "   isudo.exe -cx\"C:\\app.exe\" \"arg1 arg2\"\n");
 
                     return 0;
-                } else if (current_char == 'x') {
-                    mode_index = 0;
-                    app[0] = '\0';
-                } else {
+                default:
                     fprintf(stderr, "unknown option '%c'\n", current_char);
                     return 1;
                 }
             }
-        } else {
-            // change command to current argument
+        }
+        else
+        {
             command = current_arg;
         }
     }
