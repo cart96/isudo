@@ -39,9 +39,6 @@ void run_as_admin(char *command, char *app, prompt_t type, int def_dir)
     }
 
     strcat(buffer, command);
-    puts(buffer);
-
     ShellExecuteA(NULL, "runas", "cmd", buffer, directory, SW_SHOWNORMAL);
-
     free(buffer);
 }
