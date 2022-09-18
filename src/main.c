@@ -4,13 +4,14 @@
 int main(int argc, char **argv) {
     // check argument count
     if (argc < 2) {
-        run_as_admin("echo Loaded!", "cmd", prompt_keep);
+        run_as_admin("echo Loaded!", "cmd", prompt_keep, 1);
         return 0;
     }
 
+    int def_dir = 1;
     char app[MAX_PATH] = {0};
     char *command = "";
-    prompt_t option = prompt_close;
+    prompt_t option = prompt_keep;
 
     // parse arguments
     for (size_t arg_index = 1; arg_index < argc; arg_index++) {
@@ -25,7 +26,8 @@ int main(int argc, char **argv) {
 
                 if (mode_index >= 0) {
                     app[mode_index] = current_char;
-                    app[mode_index++] = '\0';
+                    app[mode_index + 1] = '\0';
+                    mode_index += 1;
                     continue;
                 }
 
@@ -33,22 +35,25 @@ int main(int argc, char **argv) {
                     option = prompt_keep;
                 } else if (current_char == 'c') {
                     option = prompt_close;
+                } else if (current_char == 'd') {
+                    def_dir = 0;
                 } else if (current_char == 'h') {
                     puts(
                         "Isudo 1.0.0\n\n"
-                        "Note: Isudo supports argument/option overloading.\n"
+                        "Note: Isudo supports argument/option overriding.\n"
                         "Usage: isudo.exe [options|command]\n"
                         "\nOptions\n"
                         "   -x<file>    Execute a program as admin.\n"
                         "   -k          Keep CMD open after execution.\n"
                         "   -c          Close CMD after execution.\n"
+                        "   -d          Make directory default instead of current location.\n"
                         "\nExamples\n"
                         "   isudo.exe\n"
                         "   isudo.exe -h\n"
                         "   isudo.exe -k \"echo hello\"\n"
                         "   isudo.exe -xnotepad \"pass.txt\"\n"
-                        "   isudo.exe \"echo ?\" -ck \"echo second\""
-                        "\n");
+                        "   isudo.exe \"echo ?\" -ck \"echo second\"\n"
+                        "   isudo.exe -cx\"C:\\app.exe\" \"arg1 arg2\"\n");
 
                     return 0;
                 } else if (current_char == 'x') {
@@ -65,14 +70,6 @@ int main(int argc, char **argv) {
         }
     }
 
-    // check if app is not set
-    if (app[0] == '\0') {
-        app[0] = 'c';
-        app[1] = 'm';
-        app[2] = 'd';
-        app[3] = '\0';
-    }
-
-    run_as_admin(command, app, option);
+    run_as_admin(command, app, option, def_dir);
     return 0;
 }
