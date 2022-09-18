@@ -1,1 +1,1 @@
-clang -O3 -s -Werror -Wall -std=c99 -pedantic-errors -m32 ./src/main.c -o isudo.exe
+clang -O3 -s -Werror -Wall -std=c99 -pedantic-errors -m32 -ffunction-sections -fdata-sections -Wl,--gc-sections ./src/main.c -o isudo.exe
